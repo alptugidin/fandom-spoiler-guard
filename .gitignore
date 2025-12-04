@@ -1,0 +1,14 @@
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Package files (if added later)
+node_modules/
+/.claude/

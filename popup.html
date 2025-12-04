@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fandom Spoiler Guard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 300px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      color: #333;
+      background: #f5f5f5;
+    }
+
+    .header {
+      background: #6b46c1;
+      color: white;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .header p {
+      font-size: 12px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .content {
+      padding: 16px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .keyword-list {
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .keyword-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .keyword-item:last-child {
+      border-bottom: none;
+    }
+
+    .keyword-text {
+      font-size: 14px;
+    }
+
+    .keyword-delete {
+      background: none;
+      border: none;
+      color: #e53e3e;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .keyword-delete:hover {
+      background: #fee;
+    }
+
+    .add-form {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .add-input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .add-input:focus {
+      border-color: #6b46c1;
+    }
+
+    .add-btn {
+      background: #6b46c1;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .add-btn:hover {
+      background: #553c9a;
+    }
+
+    .empty-state {
+      padding: 20px;
+      text-align: center;
+      color: #999;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Fandom Spoiler Guard</h1>
+    <p>Hide spoilers on wiki pages</p>
+  </div>
+
+  <div class="content">
+    <div class="section-title">Hidden Keywords</div>
+    <div class="keyword-list" id="keywordList">
+      <div class="empty-state">Loading...</div>
+    </div>
+
+    <form class="add-form" id="addForm">
+      <input type="text" class="add-input" id="newKeyword" placeholder="Add keyword..." required>
+      <button type="submit" class="add-btn">Add</button>
+    </form>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

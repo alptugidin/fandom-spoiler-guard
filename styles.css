@@ -1,0 +1,60 @@
+/* Proactive blur - all infobox values start blurred */
+.portable-infobox .pi-data-value {
+  filter: blur(8px);
+  user-select: none;
+  transition: filter 0.3s ease;
+}
+
+/* Safe fields - revealed by JS when not matching keywords */
+.portable-infobox .pi-data-value.spoiler-safe {
+  filter: none;
+  user-select: auto;
+}
+
+/* Spoiler fields - keep blurred, add interactivity */
+.portable-infobox .pi-data-value.spoiler-blur {
+  filter: blur(8px);
+  user-select: none;
+  cursor: pointer;
+}
+
+.portable-infobox .pi-data-value.spoiler-blur:hover {
+  filter: blur(6px);
+}
+
+/* Parent item needs relative positioning for overlay */
+.portable-infobox .pi-item.pi-data.has-spoiler {
+  position: relative;
+}
+
+/* Revealed state - user clicked to reveal */
+.portable-infobox .pi-data-value.spoiler-revealed {
+  filter: none !important;
+  user-select: auto;
+  cursor: default;
+}
+
+/* Click to reveal overlay - hidden by default */
+.spoiler-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.pi-item.pi-data.has-spoiler:hover .spoiler-overlay {
+  opacity: 1;
+}

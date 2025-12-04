@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Fandom Spoiler Guard",
+  "version": "1.0.0",
+  "description": "Protects you from spoilers on Fandom wiki pages by hiding character death/status information",
+  "permissions": [
+    "storage",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "*://*.fandom.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.fandom.com/wiki/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
