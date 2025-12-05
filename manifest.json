@@ -3,6 +3,11 @@
   "name": "Fandom Spoiler Guard",
   "version": "1.0.0",
   "description": "Protects you from spoilers on Fandom wiki pages by hiding character death/status information",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": [
     "storage",
     "contextMenus"
@@ -11,7 +16,11 @@
     "*://*.fandom.com/*"
   ],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    }
   },
   "background": {
     "service_worker": "background.js"

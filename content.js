@@ -79,6 +79,37 @@ function markAsSpoiler(valueElement, labelText) {
   }
 }
 
+// Find the label for a value element (handles both standard and horizontal group layouts)
+function findLabelForValue(valueElement) {
+  // Standard layout: .pi-item.pi-data contains both label and value
+  const standardParent = valueElement.closest('.pi-item.pi-data');
+  if (standardParent) {
+    const labelElement = standardParent.querySelector('.pi-data-label');
+    if (labelElement) {
+      return labelElement.textContent.trim();
+    }
+  }
+
+  // Horizontal group layout: label is in a separate element within the group
+  const horizontalGroup = valueElement.closest('.pi-horizontal-group');
+  if (horizontalGroup) {
+    // Try to find the label within the horizontal group header
+    const groupHeader = horizontalGroup.querySelector('.pi-horizontal-group-item.pi-data-label');
+    if (groupHeader) {
+      return groupHeader.textContent.trim();
+    }
+
+    // Some horizontal groups have the label as a header outside items
+    const headerLabel = horizontalGroup.querySelector('.pi-header');
+    if (headerLabel) {
+      return headerLabel.textContent.trim();
+    }
+  }
+
+  // No label found - this value should not be blurred
+  return null;
+}
+
 // Process portable infobox
 async function processInfobox() {
   const keywords = await getKeywords();
@@ -89,23 +120,18 @@ async function processInfobox() {
   const infoboxes = document.querySelectorAll('.portable-infobox');
 
   infoboxes.forEach(infobox => {
-    // Find all data items (rows) in the infobox
-    const dataItems = infobox.querySelectorAll('.pi-item.pi-data');
+    // Find ALL pi-data-value elements in the infobox (handles all layouts)
+    const allValueElements = infobox.querySelectorAll('.pi-data-value');
 
-    dataItems.forEach(item => {
-      const labelElement = item.querySelector('.pi-data-label');
-      const valueElement = item.querySelector('.pi-data-value');
+    allValueElements.forEach(valueElement => {
+      const labelText = findLabelForValue(valueElement);
 
-      if (labelElement && valueElement) {
-        const labelText = labelElement.textContent.trim();
-
-        if (matchesKeyword(labelText, allKeywords)) {
-          // This is a spoiler - keep it blurred and add overlay
-          markAsSpoiler(valueElement, labelText);
-        } else {
-          // This is safe - remove blur
-          markAsSafe(valueElement);
-        }
+      if (labelText && matchesKeyword(labelText, allKeywords)) {
+        // This is a spoiler - keep it blurred and add overlay
+        markAsSpoiler(valueElement, labelText);
+      } else {
+        // No label found or doesn't match keywords - mark as safe
+        markAsSafe(valueElement);
       }
     });
   });
@@ -156,7 +182,3 @@ observer.observe(document.body, {
   childList: true,
   subtree: true
 });
-
-// hata veren url
-// https://silo.fandom.com/wiki/Wool
-// https://bookoftheancestor.fandom.com/wiki/Grey_Sister
