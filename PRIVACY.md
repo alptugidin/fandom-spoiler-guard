@@ -1,6 +1,6 @@
 # Privacy Policy for Fandom Spoiler Guard
 
-**Last Updated:** December 5, 2024
+**Last Updated:** December 6, 2025
 
 ## Overview
 
